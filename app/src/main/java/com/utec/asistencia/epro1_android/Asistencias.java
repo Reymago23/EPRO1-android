@@ -3,7 +3,7 @@ package com.utec.asistencia.epro1_android;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class LogAsistencia extends AppCompatActivity {
+public class Asistencias extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

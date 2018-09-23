@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Asistencia Utec</string>
-    <string name="hint_carne">carne</string>
+
+
+    <string name="hint_carne">carné</string>
     <string name="hint_clave">clave</string>
+
+
     <string name="btn_entrar">Entrar</string>
+
+
+    <string name="menu_asistencias">Asistencias</string>
 </resources>
