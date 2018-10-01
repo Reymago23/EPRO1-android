@@ -10,4 +10,19 @@
 
 
     <string name="menu_asistencias">Asistencias</string>
+
+
+
+    <string name="confirmacion_success">Asistencia Registrada</string>
+    <string name="confirmacion_error">Ocurrio un error</string>
+    <string name="confirmacion_asignatura">Asignatura: </string>
+    <string name="confirmacion_carne">Carne: </string>
+    <string name="confirmacion_aula">Aula: </string>
+    <string name="confirmacion_fecha">Fecha: </string>
+    <string name="confirmacion_seccion">Seccion: </string>
+    <string name="confirmacion_01">01</string>
+    <string name="confirmacion_epro1">Estandares de Programacion</string>
+    <string name="confirmacion_asem1">Assembly</string>
+
+
 </resources>
