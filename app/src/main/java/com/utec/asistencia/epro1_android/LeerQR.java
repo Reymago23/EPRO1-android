@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,8 +29,11 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.utec.asistencia.epro1_android.model.Asignatura;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LeerQR extends AppCompatActivity {
 
@@ -37,6 +41,8 @@ public class LeerQR extends AppCompatActivity {
     private CameraSource cameraSource;
     private TextView tvQRText;
     private SurfaceView surfaceView;
+
+    private static String err = "";
 
     private static final int CAMERA_PERMISSION_CODE = 1;
 
@@ -120,14 +126,19 @@ public class LeerQR extends AppCompatActivity {
                             vibrator.vibrate(100);
 
 
-                            String asignatura = qrCodes.valueAt(0).displayValue;
+                            String asignaturas = qrCodes.valueAt(0).displayValue;
+
+                            Asignatura a = processAsignatura(asignaturas);
+
 
                             cameraSource.stop();
                             cameraSource.release();
 
                             Intent i = new Intent(getApplicationContext(), Confirmacion.class);
 
-                            i.putExtra("asignatura", asignatura);
+                            i.putExtra("name", a.getName());
+                            i.putExtra("sec", a.getSec());
+                            i.putExtra("aula", a.getAula());
 
                             startActivity(i);
                         }
@@ -135,6 +146,121 @@ public class LeerQR extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+
+    private Asignatura processAsignatura(String asignaturas){
+
+
+        Asignatura asignatura = new Asignatura();
+
+        String[] arr1;
+        String[][] arr2;
+
+        try{
+
+            arr1 = asignaturas.split("\\+");
+
+            arr2 = new String[arr1.length][5];
+
+
+            for(int i = 0; i < arr1.length; i++){
+
+                String[] b = arr1[i].split(",");
+
+                for(int j = 0; j < b.length; j++){
+
+                    arr2[i][j] = b[j];
+                }
+            }
+
+
+            int index = getAsignaturaIndex(arr2);
+
+            if (index != -1) {
+
+
+                asignatura.setName(arr2[index][0]);
+                asignatura.setSec(arr2[index][1]);
+                asignatura.setAula(arr2[index][4]);
+
+            }else{
+
+                // no matches for current time
+                asignatura.setName("no");
+                asignatura.setSec("no");
+                asignatura.setAula("no");
+
+            }
+
+        }catch(Exception e){
+
+            System.out.println("**************************************************");
+            System.out.println("e.getMessage: " + e.getMessage());
+            System.out.println("e.getCause: " + e.getCause());
+            System.out.println("e.getStackTrace: " + e.getStackTrace());
+            System.out.println("asignaturas: " + asignaturas);
+            System.out.println("**************************************************");
+            err = "Ocurrio un error al procesar el QR";
+            asignatura.setName("null");
+            asignatura.setSec("null");
+            asignatura.setAula("null");
+        }
+
+
+        return asignatura;
+    }
+
+
+
+    private static int getAsignaturaIndex(String[][] arr2){
+
+        for(int i = 0; i < arr2.length; i++){
+
+            String[] r = arr2[i][3].split("-");
+
+            String tStart = r[0];
+            String tEnd = r[1];
+
+            if (isBetween(tStart, tEnd)) {
+
+                return i;
+            }
+
+        }
+
+        return -1;
+    }
+
+
+    private static boolean isBetween(String pStart, String pEnd) {
+
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+
+        try {
+
+            Date start = parser.parse(pStart);
+            Date end = parser.parse(pEnd);
+            Date dateNow = new Date();
+
+            String strNow = dateNow.getHours() + ":" + dateNow.getMinutes();
+
+            Date now = parser.parse(strNow);
+
+            if (now.after(start) && now.before(end)) {
+
+                return true;
+            }
+
+        } catch (Exception e) {
+
+
+            err = "Ocurrio un error al procesar el QR";
+        }
+
+
+        return false;
     }
 
 

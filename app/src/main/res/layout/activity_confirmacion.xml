@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_margin="30dp"
             android:layout_marginTop="40dp"
+            android:paddingBottom="30dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -47,6 +48,7 @@
 
                 <TextView
                     android:layout_weight="1"
+                    android:id="@+id/tv_c_carne"
                     android:text="@string/confirmacion_carne"
                     android:layout_margin="16dp"
                     android:textSize="24sp"
@@ -75,6 +77,7 @@
 
                 <TextView
                     android:layout_weight="1"
+                    android:id="@+id/tv_c_asignatura"
                     android:text="@string/confirmacion_asignatura"
                     android:layout_margin="16dp"
                     android:textSize="24sp"
@@ -101,6 +104,7 @@
 
                 <TextView
                     android:layout_weight="1"
+                    android:id="@+id/tv_c_seccion"
                     android:text="@string/confirmacion_seccion"
                     android:layout_margin="16dp"
                     android:textSize="24sp"
@@ -128,6 +132,7 @@
 
                 <TextView
                     android:layout_weight="1"
+                    android:id="@+id/tv_c_aula"
                     android:text="@string/confirmacion_aula"
                     android:layout_margin="16dp"
                     android:textSize="24sp"
@@ -155,6 +160,7 @@
 
                 <TextView
                     android:layout_weight="2"
+                    android:id="@+id/tv_c_fecha"
                     android:text="@string/confirmacion_fecha"
                     android:layout_margin="16dp"
                     android:textSize="24sp"

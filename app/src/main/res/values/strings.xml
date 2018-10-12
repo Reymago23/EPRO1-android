@@ -14,6 +14,7 @@
 
 
     <string name="confirmacion_success">Asistencia Registrada</string>
+    <string name="confirmacion_warning">No se encontraron Asignaturas para registrar asistencia a esta hora.</string>
     <string name="confirmacion_error">Ocurrio un error</string>
     <string name="confirmacion_asignatura">Asignatura: </string>
     <string name="confirmacion_carne">Carne: </string>
