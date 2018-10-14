@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -81,6 +82,7 @@ public class Login extends AppCompatActivity {
                                     SharedPreferences.Editor spLogin = getSharedPreferences(SP_LOGIN, MODE_PRIVATE).edit();
 
                                     spLogin.putString("carne", edtCarne.getText().toString());
+
                                     spLogin.putInt("auth", 1);
 
                                     spLogin.apply();
@@ -100,7 +102,7 @@ public class Login extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<Alumno> call, Throwable t) {
 
-                                Toast.makeText(Login.this, "Ocurrio un error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, "ERROR: usuario no existe.", Toast.LENGTH_SHORT).show();
 
                             }
 

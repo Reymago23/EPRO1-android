@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface IApi {
@@ -17,8 +18,8 @@ public interface IApi {
     Call<Asistencia> addAsistencia(@Body Asistencia asistencia);
 
 
-    @GET("asistencia")
-    Call<List<Asistencia>> getAllAsistencias();
+    @GET("asistencia/{carne}")
+    Call<List<Asistencia>> getAsistenciaByCarne(@Path("carne") String carne);
 
 
     @POST("alumno")

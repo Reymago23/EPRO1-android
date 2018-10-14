@@ -23,8 +23,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="120dp"
             android:layout_height="150dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="20dp"
             app:srcCompat="@drawable/logo" />
 
         <AutoCompleteTextView
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_carne"
             android:inputType="number"
-            android:textSize="24sp" />
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/edt_clave"
@@ -51,12 +51,11 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_clave"
             android:inputType="textPassword"
-            android:textSize="24sp"/>
+            android:textSize="16sp"/>
 
         <Button
             android:layout_margin="8dp"
             android:layout_marginTop="8dp"
-            android:padding="16dp"
             android:text="@string/btn_entrar"
             android:id="@+id/btn_entrar"
             android:background="@drawable/roundcorners"

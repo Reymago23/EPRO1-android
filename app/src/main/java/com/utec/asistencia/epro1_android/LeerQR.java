@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.VibrationEffect;
@@ -37,14 +38,24 @@ import java.util.Date;
 
 public class LeerQR extends AppCompatActivity {
 
+    /**
+     * COMPLETED: add asistencia limit to 1 time per day, by asignatura name, shared prefs
+     * COMPLETED: test limit 1
+     * COMPLETED: add icon
+     * COMPLETED: add more alumnos users
+     * TODO: complete logout code
+     * TODO: fetch all asistencias_item
+     */
 
     private CameraSource cameraSource;
     private TextView tvQRText;
     private SurfaceView surfaceView;
 
-    private static String err = "";
-
     private static final int CAMERA_PERMISSION_CODE = 1;
+
+    private static final String SP_LOGIN = "sp_login";
+    private static final String SP_CONFIRMATION = "sp_confirmation";
+
 
 
     @Override
@@ -202,7 +213,6 @@ public class LeerQR extends AppCompatActivity {
             System.out.println("e.getStackTrace: " + e.getStackTrace());
             System.out.println("asignaturas: " + asignaturas);
             System.out.println("**************************************************");
-            err = "Ocurrio un error al procesar el QR";
             asignatura.setName("null");
             asignatura.setSec("null");
             asignatura.setAula("null");
@@ -256,7 +266,6 @@ public class LeerQR extends AppCompatActivity {
         } catch (Exception e) {
 
 
-            err = "Ocurrio un error al procesar el QR";
         }
 
 
@@ -278,6 +287,32 @@ public class LeerQR extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_asistencias:
                 startActivity(new Intent(this, Asistencias.class));
+                return true;
+
+
+            case R.id.menu_logout:
+                SharedPreferences settings = getApplicationContext().getSharedPreferences(SP_LOGIN, Context.MODE_PRIVATE);
+
+                Log.v("LeerQR.java", "---------");
+                Log.v("LeerQR.java", "****************************************");
+                Log.v("LeerQR.java", "Antes de limpiar carne: " + settings.getString("carne", "0"));
+
+                settings.edit().clear().apply();
+
+                Log.v("LeerQR.java", "****************************************");
+                Log.v("LeerQR.java", "Limpiado carne: " + settings.getString("carne", "0"));
+
+                settings = getApplicationContext().getSharedPreferences(SP_CONFIRMATION, Context.MODE_PRIVATE);
+
+                settings.edit().clear().apply();
+
+                Log.v("LeerQR.java", "****************************************");
+                Log.v("LeerQR.java", "Antes de date: " + settings.getString("date", "0"));
+                Log.v("LeerQR.java", "****************************************");
+                Log.v("LeerQR.java", "Limpiada date: " + settings.getString("date", "0"));
+
+                startActivity(new Intent(this, Login.class));
+                finish();
                 return true;
 
             default:

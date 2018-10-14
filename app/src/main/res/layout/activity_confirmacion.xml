@@ -13,7 +13,7 @@
 
 
         <LinearLayout
-            android:layout_margin="30dp"
+            android:layout_margin="10dp"
             android:layout_marginTop="40dp"
             android:paddingBottom="30dp"
             android:orientation="vertical"
@@ -29,7 +29,10 @@
 
             <TextView
                 android:layout_margin="16dp"
-                android:textSize="32sp"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:textColor="@color/success"
+                android:textStyle="bold"
                 android:id="@+id/tv_confirmacion"
                 android:text="@string/confirmacion_success"
                 android:layout_width="match_parent"
@@ -41,28 +44,28 @@
 
             <LinearLayout
                 android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
 
                 <TextView
-                    android:layout_weight="1"
                     android:id="@+id/tv_c_carne"
                     android:text="@string/confirmacion_carne"
-                    android:layout_margin="16dp"
-                    android:textSize="24sp"
-                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp" />
+                    />
 
                 <TextView
-                    android:layout_weight="1"
                     android:textSize="16sp"
+                    android:padding="8dp"
+                    android:textColor="@color/cvalue"
                     android:id="@+id/tv_carne"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -70,112 +73,111 @@
 
             <LinearLayout
                 android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
 
                 <TextView
-                    android:layout_weight="1"
                     android:id="@+id/tv_c_asignatura"
                     android:text="@string/confirmacion_asignatura"
-                    android:layout_margin="16dp"
-                    android:textSize="24sp"
-                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp" />
+                     />
 
                 <TextView
-                    android:layout_weight="1"
                     android:textSize="16sp"
+                    android:padding="8dp"
+                    android:textColor="@color/cvalue"
                     android:id="@+id/tv_asignatura"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
 
                 <TextView
-                    android:layout_weight="1"
                     android:id="@+id/tv_c_seccion"
                     android:text="@string/confirmacion_seccion"
-                    android:layout_margin="16dp"
-                    android:textSize="24sp"
-                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp" />
+                     />
 
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_margin="16dp"
                     android:textSize="16sp"
+                    android:padding="8dp"
+                    android:textColor="@color/cvalue"
                     android:id="@+id/tv_seccion"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
 
                 <TextView
-                    android:layout_weight="1"
                     android:id="@+id/tv_c_aula"
                     android:text="@string/confirmacion_aula"
-                    android:layout_margin="16dp"
-                    android:textSize="24sp"
-                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp" />
+                     />
 
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_margin="16dp"
                     android:textSize="16sp"
+                    android:padding="8dp"
+                    android:textColor="@color/cvalue"
                     android:id="@+id/tv_aula"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
 
                 <TextView
-                    android:layout_weight="2"
                     android:id="@+id/tv_c_fecha"
+                    android:padding="8dp"
                     android:text="@string/confirmacion_fecha"
-                    android:layout_margin="16dp"
-                    android:textSize="24sp"
-                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp" />
+                     />
 
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_marginVertical="16dp"
-                    android:layout_marginHorizontal="8dp"
                     android:textSize="16sp"
                     android:id="@+id/tv_fecha"
-                    android:layout_width="match_parent"
+                    android:padding="8dp"
+                    android:textColor="@color/cvalue"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
