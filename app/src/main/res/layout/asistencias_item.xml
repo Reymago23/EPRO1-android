@@ -39,54 +39,71 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
 
-            <TextView
-                android:text="@string/confirmacion_seccion"
-                android:textSize="16sp"
-                android:padding="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+                <TextView
+                    android:text="@string/confirmacion_seccion"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
 
-            <TextView
-                android:id="@+id/a_tv_seccion"
-                android:text="01"
-                android:textColor="@color/cvalue"
-                android:textSize="16sp"
-                android:padding="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/a_tv_seccion"
+                    android:text="01"
+                    android:textColor="@color/cvalue"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@string/confirmacion_aula"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:id="@+id/a_tv_aula"
+                    android:text="SB-401"
+                    android:textColor="@color/cvalue"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <TextView
+                    android:text="@string/confirmacion_ciclo"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:id="@+id/a_tv_ciclo"
+                    android:text="SB-401"
+                    android:textColor="@color/cvalue"
+                    android:textSize="16sp"
+                    android:padding="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
 
-
-            <TextView
-                android:text="@string/confirmacion_aula"
-                android:textSize="16sp"
-                android:padding="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-
-            <TextView
-                android:id="@+id/a_tv_aula"
-                android:text="SB-401"
-                android:textColor="@color/cvalue"
-                android:textSize="16sp"
-                android:padding="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
 

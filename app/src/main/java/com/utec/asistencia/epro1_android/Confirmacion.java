@@ -39,6 +39,7 @@ public class Confirmacion extends AppCompatActivity {
         final TextView tvAula = findViewById(R.id.tv_aula);
         final TextView tvFecha = findViewById(R.id.tv_fecha);
         final TextView tvCarne = findViewById(R.id.tv_carne);
+        final TextView tvCiclo = findViewById(R.id.tv_ciclo);
 
 
         final TextView tvCAsignatura = findViewById(R.id.tv_c_asignatura);
@@ -46,6 +47,7 @@ public class Confirmacion extends AppCompatActivity {
         final TextView tvCAula = findViewById(R.id.tv_c_aula);
         final TextView tvCFecha = findViewById(R.id.tv_c_fecha);
         final TextView tvCCarne = findViewById(R.id.tv_c_carne);
+        final TextView tvCCiclo = findViewById(R.id.tv_c_ciclo);
 
         final TextView tvConfirmacion = findViewById(R.id.tv_confirmacion);
         final ImageView ivImage = findViewById(R.id.iv_image);
@@ -55,6 +57,8 @@ public class Confirmacion extends AppCompatActivity {
         String name = i.getStringExtra("name");
         String sec = i.getStringExtra("sec");
         String iAula = i.getStringExtra("aula");
+        String iCiclo = i.getStringExtra("ciclo");
+        Log.v("Confirmacion.class", "ciclo: " + iCiclo);
 
         SharedPreferences prefsConfirmation = getSharedPreferences(SP_CONFIRMATION, MODE_PRIVATE);
 
@@ -93,12 +97,14 @@ public class Confirmacion extends AppCompatActivity {
             tvCarne.setVisibility(View.GONE);
             tvAula.setVisibility(View.GONE);
             tvFecha.setVisibility(View.GONE);
+            tvCiclo.setVisibility(View.GONE);
 
             tvCAsignatura.setVisibility(View.GONE);
             tvCCarne.setVisibility(View.GONE);
             tvCAula.setVisibility(View.GONE);
             tvCFecha.setVisibility(View.GONE);
             tvCSeccion.setVisibility(View.GONE);
+            tvCCiclo.setVisibility(View.GONE);
 
 
         } else {
@@ -113,10 +119,12 @@ public class Confirmacion extends AppCompatActivity {
                     final String asignatura = name;
                     final String seccion = sec;
                     final String aula = iAula;
+                    final String ciclo = iCiclo;
                     final String carne = prefsLogin.getString("carne", "2501262015");
 
-                    Asistencia asistencia = new Asistencia(carne, asignatura, seccion, aula);
+                    Asistencia asistencia = new Asistencia(carne, asignatura, seccion, aula, ciclo);
 
+                    asistencia.toString();
 
                     Call<Asistencia> call = RetrofitClient.getInstance()
                             .getApi().addAsistencia(asistencia);
@@ -156,6 +164,7 @@ public class Confirmacion extends AppCompatActivity {
                                 tvSeccion.setText(a.getSeccion());
                                 tvCarne.setText(a.getCarne());
                                 tvAula.setText(a.getAula());
+                                tvCiclo.setText(a.getCiclo());
                                 tvFecha.setText(sdf.format(a.getFechaHora()));
 
                             } else {
@@ -192,12 +201,14 @@ public class Confirmacion extends AppCompatActivity {
                     tvCarne.setVisibility(View.GONE);
                     tvAula.setVisibility(View.GONE);
                     tvFecha.setVisibility(View.GONE);
+                    tvCiclo.setVisibility(View.GONE);
 
                     tvCAsignatura.setVisibility(View.GONE);
                     tvCCarne.setVisibility(View.GONE);
                     tvCAula.setVisibility(View.GONE);
                     tvCFecha.setVisibility(View.GONE);
                     tvCSeccion.setVisibility(View.GONE);
+                    tvCCiclo.setVisibility(View.GONE);
 
 
                 }
@@ -212,12 +223,14 @@ public class Confirmacion extends AppCompatActivity {
                 tvCarne.setVisibility(View.GONE);
                 tvAula.setVisibility(View.GONE);
                 tvFecha.setVisibility(View.GONE);
+                tvCiclo.setVisibility(View.GONE);
 
                 tvCAsignatura.setVisibility(View.GONE);
                 tvCCarne.setVisibility(View.GONE);
                 tvCAula.setVisibility(View.GONE);
                 tvCFecha.setVisibility(View.GONE);
                 tvCSeccion.setVisibility(View.GONE);
+                tvCCiclo.setVisibility(View.GONE);
 
             }
 

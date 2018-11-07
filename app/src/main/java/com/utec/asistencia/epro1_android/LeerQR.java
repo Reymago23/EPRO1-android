@@ -150,6 +150,7 @@ public class LeerQR extends AppCompatActivity {
                             i.putExtra("name", a.getName());
                             i.putExtra("sec", a.getSec());
                             i.putExtra("aula", a.getAula());
+                            i.putExtra("ciclo", a.getCiclo());
 
                             startActivity(i);
                         }
@@ -173,7 +174,7 @@ public class LeerQR extends AppCompatActivity {
 
             arr1 = asignaturas.split("\\+");
 
-            arr2 = new String[arr1.length][5];
+            arr2 = new String[arr1.length][6];
 
 
             for(int i = 0; i < arr1.length; i++){
@@ -195,6 +196,7 @@ public class LeerQR extends AppCompatActivity {
                 asignatura.setName(arr2[index][0]);
                 asignatura.setSec(arr2[index][1]);
                 asignatura.setAula(arr2[index][4]);
+                asignatura.setCiclo(arr2[index][5]);
 
             }else{
 

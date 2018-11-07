@@ -30,6 +30,7 @@ public class AsistenciasAdapter extends RecyclerView.Adapter<AsistenciasAdapter.
         public TextView tvSeccion;
         public TextView tvAula;
         public TextView tvFecha;
+        public TextView tvCiclo;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -43,6 +44,7 @@ public class AsistenciasAdapter extends RecyclerView.Adapter<AsistenciasAdapter.
             tvSeccion = itemView.findViewById(R.id.a_tv_seccion);
             tvAula = itemView.findViewById(R.id.a_tv_aula);
             tvFecha = itemView.findViewById(R.id.a_tv_fecha);
+            tvCiclo = itemView.findViewById(R.id.a_tv_ciclo);
 
         }
     }
@@ -89,6 +91,9 @@ public class AsistenciasAdapter extends RecyclerView.Adapter<AsistenciasAdapter.
 
         TextView tvAula = viewHolder.tvAula;
         tvAula.setText(asistencia.getAula());
+
+        TextView tvCiclo = viewHolder.tvCiclo;
+        tvCiclo.setText(asistencia.getCiclo());
 
         Locale locale = new Locale("es", "sv");
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss aaa", locale);

@@ -27,6 +27,10 @@ public class Asistencia {
     @Expose
     private String aula;
 
+    @SerializedName("ciclo")
+    @Expose
+    private String ciclo;
+
     @SerializedName("fechaHora")
     @Expose
     private Timestamp fechaHora;
@@ -39,14 +43,24 @@ public class Asistencia {
                 ", asignatura='" + asignatura + '\'' +
                 ", seccion='" + seccion + '\'' +
                 ", aula='" + aula + '\'' +
+                ", ciclo='" + ciclo + '\'' +
                 '}';
     }
 
-    public Asistencia(String carne, String asignatura, String seccion, String aula) {
+    public Asistencia(String carne, String asignatura, String seccion, String aula, String ciclo) {
         this.carne = carne;
         this.asignatura = asignatura;
         this.seccion = seccion;
         this.aula = aula;
+        this.ciclo = ciclo;
+    }
+
+    public String getCiclo() {
+        return ciclo;
+    }
+
+    public void setCiclo(String ciclo) {
+        this.ciclo = ciclo;
     }
 
     public int getId() {

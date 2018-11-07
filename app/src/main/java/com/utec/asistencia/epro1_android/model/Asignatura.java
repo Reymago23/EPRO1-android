@@ -7,6 +7,7 @@ public class Asignatura {
     private String name;
     private String sec;
     private String aula;
+    private String ciclo;
 
     public String getAula() {
         return aula;
@@ -22,6 +23,15 @@ public class Asignatura {
     public Asignatura(String name, String sec) {
         this.name = name;
         this.sec = sec;
+    }
+
+
+    public String getCiclo() {
+        return ciclo;
+    }
+
+    public void setCiclo(String ciclo) {
+        this.ciclo = ciclo;
     }
 
     public String getName() {

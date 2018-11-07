@@ -164,6 +164,33 @@
 
 
                 <TextView
+                    android:id="@+id/tv_c_ciclo"
+                    android:padding="8dp"
+                    android:text="@string/confirmacion_ciclo"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:id="@+id/tv_ciclo"
+                    android:padding="8dp"
+                    android:textColor="@color/cvalue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <TextView
                     android:id="@+id/tv_c_fecha"
                     android:padding="8dp"
                     android:text="@string/confirmacion_fecha"

@@ -23,6 +23,7 @@
     <string name="confirmacion_aula">Aula: </string>
     <string name="confirmacion_fecha">Fecha: </string>
     <string name="confirmacion_seccion">Seccion: </string>
+    <string name="confirmacion_ciclo">Ciclo: </string>
     <string name="confirmacion_01">01</string>
     <string name="confirmacion_epro1">Estandares de Programacion</string>
     <string name="confirmacion_asem1">Assembly</string>
