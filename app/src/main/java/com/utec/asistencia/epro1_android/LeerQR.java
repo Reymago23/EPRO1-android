@@ -34,48 +34,37 @@ import com.utec.asistencia.epro1_android.model.Asignatura;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class LeerQR extends AppCompatActivity {
 
-    /**
-     * COMPLETED: add asistencia limit to 1 time per day, by asignatura name, shared prefs
-     * COMPLETED: test limit 1
-     * COMPLETED: add icon
-     * COMPLETED: add more alumnos users
-     * TODO: complete logout code
-     * TODO: fetch all asistencias_item
-     */
-
     private CameraSource cameraSource;
     private TextView tvQRText;
     private SurfaceView surfaceView;
-
     private static final int CAMERA_PERMISSION_CODE = 1;
-
     private static final String SP_LOGIN = "sp_login";
     private static final String SP_CONFIRMATION = "sp_confirmation";
-
-
+    private String asignatura = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_leer_qr);
 
         surfaceView = findViewById(R.id.sv_camera);
         tvQRText = findViewById(R.id.tv_qr_result);
 
-
         BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this)
-                .setBarcodeFormats(Barcode.QR_CODE).build();
-
+                                                .setBarcodeFormats(Barcode.QR_CODE).build();
 
         cameraSource = new CameraSource.Builder(this, barcodeDetector)
-                .setRequestedPreviewSize(640, 480)
-                .setAutoFocusEnabled(true)
-                .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .build();
+                                .setRequestedPreviewSize(640, 480)
+                                .setAutoFocusEnabled(true)
+                                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                                .build();
 
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -130,28 +119,25 @@ public class LeerQR extends AppCompatActivity {
                     tvQRText.post(new Runnable() {
                         @Override
                         public void run() {
+                            Vibrator vibrator = (Vibrator) getApplicationContext()
+                                                        .getSystemService(Context.VIBRATOR_SERVICE);
 
-                            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-
-                            assert vibrator != null;
-                            vibrator.vibrate(100);
-
+                            if (vibrator != null){  vibrator.vibrate(100); }
 
                             String asignaturas = qrCodes.valueAt(0).displayValue;
+                            int hayClases = 0;
+                            Intent i = new Intent(getApplicationContext(), Confirmacion.class);
 
-                            Asignatura a = processAsignatura(asignaturas);
+                            if (isDayOfClass(asignaturas)) {
 
+                                hayClases = 1;
+                                i.putExtra("asignatura", asignatura);
+                            }
 
                             cameraSource.stop();
                             cameraSource.release();
 
-                            Intent i = new Intent(getApplicationContext(), Confirmacion.class);
-
-                            i.putExtra("name", a.getName());
-                            i.putExtra("sec", a.getSec());
-                            i.putExtra("aula", a.getAula());
-                            i.putExtra("ciclo", a.getCiclo());
-
+                            i.putExtra("hayClases", hayClases);
                             startActivity(i);
                         }
                     });
@@ -161,119 +147,75 @@ public class LeerQR extends AppCompatActivity {
     }
 
 
+    private boolean isDayOfClass(String asignaturas){
 
-    private Asignatura processAsignatura(String asignaturas){
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        int today = calendar.get(Calendar.DAY_OF_WEEK);
 
+        String[] all = asignaturas.split("\\+");
 
-        Asignatura asignatura = new Asignatura();
+        for (String asig : all) {
 
-        String[] arr1;
-        String[][] arr2;
+            String[] one = asig.split(",");
 
-        try{
+            int[] daysIntArr = getDaysNumArr(one[2].split("\\-"));
 
-            arr1 = asignaturas.split("\\+");
+            for (int dayInArr : daysIntArr) {
 
-            arr2 = new String[arr1.length][6];
-
-
-            for(int i = 0; i < arr1.length; i++){
-
-                String[] b = arr1[i].split(",");
-
-                for(int j = 0; j < b.length; j++){
-
-                    arr2[i][j] = b[j];
+                if (today == dayInArr) {
+                    asignatura = asig;
+                    return true;
                 }
             }
 
-
-            int index = getAsignaturaIndex(arr2);
-
-            if (index != -1) {
-
-
-                asignatura.setName(arr2[index][0]);
-                asignatura.setSec(arr2[index][1]);
-                asignatura.setAula(arr2[index][4]);
-                asignatura.setCiclo(arr2[index][5]);
-
-            }else{
-
-                // no matches for current time
-                asignatura.setName("no");
-                asignatura.setSec("no");
-                asignatura.setAula("no");
-
-            }
-
-        }catch(Exception e){
-
-            System.out.println("**************************************************");
-            System.out.println("e.getMessage: " + e.getMessage());
-            System.out.println("e.getCause: " + e.getCause());
-            System.out.println("e.getStackTrace: " + e.getStackTrace());
-            System.out.println("asignaturas: " + asignaturas);
-            System.out.println("**************************************************");
-            asignatura.setName("null");
-            asignatura.setSec("null");
-            asignatura.setAula("null");
         }
-
-
-        return asignatura;
-    }
-
-
-
-    private static int getAsignaturaIndex(String[][] arr2){
-
-        for(int i = 0; i < arr2.length; i++){
-
-            String[] r = arr2[i][3].split("-");
-
-            String tStart = r[0];
-            String tEnd = r[1];
-
-            if (isBetween(tStart, tEnd)) {
-
-                return i;
-            }
-
-        }
-
-        return -1;
-    }
-
-
-    private static boolean isBetween(String pStart, String pEnd) {
-
-        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
-
-        try {
-
-            Date start = parser.parse(pStart);
-            Date end = parser.parse(pEnd);
-            Date dateNow = new Date();
-
-            String strNow = dateNow.getHours() + ":" + dateNow.getMinutes();
-
-            Date now = parser.parse(strNow);
-
-            if (now.after(start) && now.before(end)) {
-
-                return true;
-            }
-
-        } catch (Exception e) {
-
-
-        }
-
 
         return false;
     }
 
+    private int[]  getDaysNumArr(String[] days) {
+
+        int[] daysNumArr = new int[days.length];
+
+        for (int i = 0; i < days.length; i++) {
+
+            daysNumArr[i] = getDayNum(days[i]);
+        }
+
+        return daysNumArr;
+    }
+
+    public int getDayNum(String day) {
+
+        int dayInt = -1;
+        switch (day.toLowerCase()) {
+            case "dom":
+                dayInt = 1;
+                break;
+            case "lu":
+                dayInt = 2;
+                break;
+            case "ma":
+                dayInt = 3;
+                break;
+            case "mie":
+                dayInt = 4;
+                break;
+            case "jue":
+                dayInt = 5;
+                break;
+            case "vie":
+                dayInt = 6;
+                break;
+            case "sab":
+                dayInt = 7;
+                break;
+        }
+
+        return dayInt;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -281,7 +223,6 @@ public class LeerQR extends AppCompatActivity {
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -291,27 +232,13 @@ public class LeerQR extends AppCompatActivity {
                 startActivity(new Intent(this, Asistencias.class));
                 return true;
 
-
             case R.id.menu_logout:
                 SharedPreferences settings = getApplicationContext().getSharedPreferences(SP_LOGIN, Context.MODE_PRIVATE);
 
-                Log.v("LeerQR.java", "---------");
-                Log.v("LeerQR.java", "****************************************");
-                Log.v("LeerQR.java", "Antes de limpiar carne: " + settings.getString("carne", "0"));
-
                 settings.edit().clear().apply();
-
-                Log.v("LeerQR.java", "****************************************");
-                Log.v("LeerQR.java", "Limpiado carne: " + settings.getString("carne", "0"));
-
                 settings = getApplicationContext().getSharedPreferences(SP_CONFIRMATION, Context.MODE_PRIVATE);
 
                 settings.edit().clear().apply();
-
-                Log.v("LeerQR.java", "****************************************");
-                Log.v("LeerQR.java", "Antes de date: " + settings.getString("date", "0"));
-                Log.v("LeerQR.java", "****************************************");
-                Log.v("LeerQR.java", "Limpiada date: " + settings.getString("date", "0"));
 
                 startActivity(new Intent(this, Login.class));
                 finish();
@@ -322,15 +249,25 @@ public class LeerQR extends AppCompatActivity {
         }
     }
 
-    private void requestCameraPermission() {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        // COMPLETED: Consider calling
-        //    ActivityCompat#requestPermissions
-        // here to request the missing permissions, and then overriding
-        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-        //                                          int[] grantResults)
-        // to handle the case where the user grants the permission. See the documentation
-        // for ActivityCompat#requestPermissions for more details.
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(this, "Permiso concedido, gracias!", Toast.LENGTH_SHORT).show();
+
+                surfaceView.setVisibility(View.GONE);
+                surfaceView.setVisibility(View.VISIBLE);
+            } else {
+
+                Toast.makeText(this, "Permiso denegado, :(", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void requestCameraPermission() {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
 
@@ -359,27 +296,5 @@ public class LeerQR extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }
     }
-
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (requestCode == CAMERA_PERMISSION_CODE) {
-
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                Toast.makeText(this, "Permiso concedido, gracias!", Toast.LENGTH_SHORT).show();
-
-                surfaceView.setVisibility(View.GONE);
-                surfaceView.setVisibility(View.VISIBLE);
-            } else {
-
-                Toast.makeText(this, "Permiso denegado, :(", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
 
 }
