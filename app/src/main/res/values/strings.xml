@@ -1,23 +1,19 @@
 <resources>
     <string name="app_name">Asistencia Utec</string>
 
-
     <string name="hint_carne">carné</string>
     <string name="hint_clave">clave</string>
 
-
     <string name="btn_entrar">Entrar</string>
-
 
     <string name="menu_asistencias">Asistencias</string>
     <string name="menu_logout">Salir</string>
 
-
-
-    <string name="confirmacion_success">Asistencia Registrada</string>
-    <string name="confirmacion_warning">No se encontraron Asignaturas para registrar asistencia a esta hora.</string>
-    <string name="confirmacion_prev_asistencia">Asistencia previamente registrada.</string>
-    <string name="confirmacion_error">Ocurrio un error</string>
+    <string name="confirmacion_success">Asistencia Registrada exitosamente</string>
+    <string name="confirmacion_prev_asistencia">Asistencia previamente Registrada</string>
+    <string name="confirmacion_error_hora">ERROR: la clase no se imparte a esta hora.</string>
+    <string name="confirmacion_error_dia">ERROR: la clase no se imparte este dia</string>
+    <string name="confirmacion_error">Ocurrio un error de conexion</string>
     <string name="confirmacion_asignatura">Asignatura: </string>
     <string name="confirmacion_carne">Carne: </string>
     <string name="confirmacion_aula">Aula: </string>

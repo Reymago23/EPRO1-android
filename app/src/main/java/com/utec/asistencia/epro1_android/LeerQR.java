@@ -104,10 +104,6 @@ public class LeerQR extends AppCompatActivity {
 
 
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
-            @Override
-            public void release() {
-
-            }
 
             @Override
             public void receiveDetections(final Detector.Detections<Barcode> detections) {
@@ -134,14 +130,22 @@ public class LeerQR extends AppCompatActivity {
                                 i.putExtra("asignatura", asignatura);
                             }
 
-                            cameraSource.stop();
-                            cameraSource.release();
+                            if(cameraSource != null){
+
+                                cameraSource.stop();
+                                cameraSource.release();
+                            }
 
                             i.putExtra("hayClases", hayClases);
                             startActivity(i);
                         }
                     });
                 }
+            }
+
+            @Override
+            public void release() {
+
             }
         });
     }
