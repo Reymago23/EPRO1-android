@@ -48,11 +48,15 @@ public class Confirmacion extends AppCompatActivity {
         Intent i = getIntent();
         int hayClases = i.getIntExtra("hayClases", 2);
 
+//        Toast.makeText(Confirmacion.this, "hayClases: " + hayClases, Toast.LENGTH_SHORT).show();
+
         if (hayClases == 1){
 
             String asignaturaDetails = i.getStringExtra("asignatura");
             String[] detailsArr = asignaturaDetails.split(",");
             String[] timeArr = detailsArr[3].split("-");
+            //Toast.makeText(Confirmacion.this, "timeArr[0]: " + timeArr[0] + " timeArr[1]: " + timeArr[1], Toast.LENGTH_SHORT).show();
+
 
             if (isBetween(timeArr[0], timeArr[1])){
 
@@ -69,63 +73,65 @@ public class Confirmacion extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Integer> call, Response<Integer> response) {
 
-                        Integer count = response.body();
-                        //Toast.makeText(getApplicationContext(), "count: " + count, Toast.LENGTH_LONG).show();
+                        if (response.body() != null){
 
-                        //TODO: registrar asistencia
-                        if (count == 0){
+                            if (response.body() == 0){
 
-                            Asistencia asistencia = new Asistencia(carne, asignatura, seccion, aula, ciclo);
-                            Call<Asistencia> callAdd = RetrofitClient.getInstance().getApi().addAsistencia(asistencia);
+                                Asistencia asistencia = new Asistencia(carne, asignatura, seccion, aula, ciclo);
+                                Call<Asistencia> callAdd = RetrofitClient.getInstance().getApi().addAsistencia(asistencia);
 
+                                callAdd.enqueue(new Callback<Asistencia>() {
+                                    @Override
+                                    public void onResponse(Call<Asistencia> call, Response<Asistencia> response) {
 
-                            callAdd.enqueue(new Callback<Asistencia>() {
-                                @Override
-                                public void onResponse(Call<Asistencia> call, Response<Asistencia> response) {
+                                        if (response.code() == 201) {
 
-                                    if (response.code() == 201) {
+                                            Asistencia a = response.body();
 
-                                        Asistencia a = response.body();
+                                            Locale locale = new Locale("es", "sv");
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss aaa", locale);
 
-                                        Locale locale = new Locale("es", "sv");
-                                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss aaa", locale);
+                                            lyCInfo.setVisibility(View.VISIBLE);
+                                            ivImage.setImageResource(R.drawable.ic_check);
+                                            tvConfirmacion.setTextColor(getResources().getColor(R.color.success));
+                                            tvConfirmacion.setText(R.string.confirmacion_success);
 
-                                        lyCInfo.setVisibility(View.VISIBLE);
-                                        ivImage.setImageResource(R.drawable.ic_check);
-                                        tvConfirmacion.setTextColor(getResources().getColor(R.color.success));
-                                        tvConfirmacion.setText(R.string.confirmacion_success);
+                                            tvAsignatura.setText(a.getAsignatura().toLowerCase());
+                                            tvSeccion.setText(a.getSeccion());
+                                            tvCarne.setText(a.getCarne());
+                                            tvAula.setText(a.getAula());
+                                            tvCiclo.setText(a.getCiclo());
+                                            tvFecha.setText(sdf.format(a.getFechaHora()));
 
-                                        tvAsignatura.setText(a.getAsignatura().toLowerCase());
-                                        tvSeccion.setText(a.getSeccion());
-                                        tvCarne.setText(a.getCarne());
-                                        tvAula.setText(a.getAula());
-                                        tvCiclo.setText(a.getCiclo());
-                                        tvFecha.setText(sdf.format(a.getFechaHora()));
+                                        }else {
 
-                                    }else {
+                                            ivImage.setImageResource(R.drawable.ic_error);
+                                            tvConfirmacion.setTextColor(getResources().getColor(R.color.danger));
+                                            tvConfirmacion.setText(R.string.confirmacion_error);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Asistencia> call, Throwable t) {
 
                                         ivImage.setImageResource(R.drawable.ic_error);
                                         tvConfirmacion.setTextColor(getResources().getColor(R.color.danger));
                                         tvConfirmacion.setText(R.string.confirmacion_error);
                                     }
+                                });
 
+                            }else {
 
-                                }
+                                ivImage.setImageResource(R.drawable.ic_warning);
+                                tvConfirmacion.setTextColor(getResources().getColor(R.color.success));
+                                tvConfirmacion.setText(R.string.confirmacion_prev_asistencia);
+                            }
 
-                                @Override
-                                public void onFailure(Call<Asistencia> call, Throwable t) {
+                        }else{
 
-                                    ivImage.setImageResource(R.drawable.ic_error);
-                                    tvConfirmacion.setTextColor(getResources().getColor(R.color.danger));
-                                    tvConfirmacion.setText(R.string.confirmacion_error);
-                                }
-                            });
-
-                        }else {
-
-                            ivImage.setImageResource(R.drawable.ic_warning);
-                            tvConfirmacion.setTextColor(getResources().getColor(R.color.success));
-                            tvConfirmacion.setText(R.string.confirmacion_prev_asistencia);
+                            ivImage.setImageResource(R.drawable.ic_error);
+                            tvConfirmacion.setTextColor(getResources().getColor(R.color.danger));
+                            tvConfirmacion.setText(R.string.confirmacion_error);
                         }
 
                     }
@@ -154,7 +160,6 @@ public class Confirmacion extends AppCompatActivity {
         }
 
     }
-
 
 
     private static boolean isBetween(String pStart, String pEnd) {

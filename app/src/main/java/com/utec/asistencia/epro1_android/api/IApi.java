@@ -17,13 +17,11 @@ public interface IApi {
     @POST("asistencia")
     Call<Asistencia> addAsistencia(@Body Asistencia asistencia);
 
-
     @GET("asistencia/{carne}")
     Call<List<Asistencia>> getAsistenciaByCarne(@Path("carne") String carne);
 
     @GET("asistencia/{carne}/{asignatura}")
     Call<Integer> validarAsistencia(@Path("carne") String carne, @Path("asignatura") String asignatura);
-
 
     @POST("alumno")
     Call<Alumno> getAlumnoByCarneAndPassword(@Query("carne") String carne, @Query("password") String password);

@@ -5,6 +5,8 @@
     <color name="colorAccent">#e35183</color>
 
     <color name="grey">#9c9c9c</color>
+    <color name="white">#ffffff</color>
+    <color name="item_background">#eeeeee</color>
     <color name="warning">#9e9d24</color>
     <color name="danger">#870000</color>
     <color name="success">#15601a</color>

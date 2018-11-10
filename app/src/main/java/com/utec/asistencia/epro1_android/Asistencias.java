@@ -23,7 +23,6 @@ import retrofit2.Response;
 public class Asistencias extends AppCompatActivity {
 
     private TextView tvAsistencias;
-
     private static final String SP_LOGIN = "sp_login";
 
     @Override
@@ -31,20 +30,14 @@ public class Asistencias extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asistencias);
 
-
         tvAsistencias = findViewById(R.id.tv_asistencias);
-
         SharedPreferences prefs = getSharedPreferences(SP_LOGIN, MODE_PRIVATE);
-
         String carne = prefs.getString("carne", "0");
-
         Call<List<Asistencia>> call = RetrofitClient.getInstance().getApi().getAsistenciaByCarne(carne);
-
 
         call.enqueue(new Callback<List<Asistencia>>() {
             @Override
             public void onResponse(Call<List<Asistencia>> call, Response<List<Asistencia>> response) {
-
 
                 if (response.body() != null){
 
@@ -59,7 +52,6 @@ public class Asistencias extends AppCompatActivity {
                         rvAsistencias.setAdapter(adapter);
 
                         rvAsistencias.setLayoutManager(new LinearLayoutManager(Asistencias.this));
-
                     }
 
                 }else
@@ -72,6 +64,7 @@ public class Asistencias extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Asistencia>> call, Throwable t) {
 
+                Toast.makeText(Asistencias.this, "Ocurrio un error!", Toast.LENGTH_SHORT).show();
             }
         });
 

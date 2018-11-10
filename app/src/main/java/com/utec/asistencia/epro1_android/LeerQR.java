@@ -136,6 +136,7 @@ public class LeerQR extends AppCompatActivity {
                                 cameraSource.release();
                             }
 
+                         //   Toast.makeText(LeerQR.this, "hayClases: " + hayClases, Toast.LENGTH_SHORT).show();
                             i.putExtra("hayClases", hayClases);
                             startActivity(i);
                         }
