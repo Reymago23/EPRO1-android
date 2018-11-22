@@ -49,8 +49,14 @@ public class Confirmacion extends AppCompatActivity {
         int hayClases = i.getIntExtra("hayClases", 2);
 
 //        Toast.makeText(Confirmacion.this, "hayClases: " + hayClases, Toast.LENGTH_SHORT).show();
+        Log.v("Confirmacion.java", "hayClases = " + hayClases);
+        if (hayClases == -1) {
 
-        if (hayClases == 1){
+            ivImage.setImageResource(R.drawable.ic_error);
+            tvConfirmacion.setTextColor(getResources().getColor(R.color.danger));
+            tvConfirmacion.setText(R.string.confirmacion_error_qr);
+
+        }else if (hayClases == 1){
 
             String asignaturaDetails = i.getStringExtra("asignatura");
             String[] detailsArr = asignaturaDetails.split(",");

@@ -43,6 +43,7 @@ public class LeerQR extends AppCompatActivity {
     private TextView tvQRText;
     private SurfaceView surfaceView;
     private static final int CAMERA_PERMISSION_CODE = 1;
+    private static boolean errorQR = false;
     private static final String SP_LOGIN = "sp_login";
     private static final String SP_CONFIRMATION = "sp_confirmation";
     private String asignatura = null;
@@ -51,6 +52,7 @@ public class LeerQR extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        errorQR = false;
 
         setContentView(R.layout.activity_leer_qr);
 
@@ -136,8 +138,16 @@ public class LeerQR extends AppCompatActivity {
                                 cameraSource.release();
                             }
 
+                            if (errorQR){
+                                hayClases = -1;
+                                Log.v("LeerQR.java", "errorQR = " + errorQR);
+                                Log.v("LeerQR.java", "errorQR = TRUE");
+                            }
+
                          //   Toast.makeText(LeerQR.this, "hayClases: " + hayClases, Toast.LENGTH_SHORT).show();
                             i.putExtra("hayClases", hayClases);
+
+
                             startActivity(i);
                         }
                     });
@@ -165,7 +175,18 @@ public class LeerQR extends AppCompatActivity {
 
             String[] one = asig.split(",");
 
-            int[] daysIntArr = getDaysNumArr(one[2].split("\\-"));
+            int[] daysIntArr;
+
+            try {
+                daysIntArr = getDaysNumArr(one[2].split("\\-"));
+                errorQR = false;
+            }catch (Exception e){
+                Log.v("LeerQR.java", e.getMessage());
+                Log.v("LeerQR.java", "errorQR = TRUE");
+
+                errorQR = true;
+                return false;
+            }
 
             for (int dayInArr : daysIntArr) {
 
@@ -220,6 +241,12 @@ public class LeerQR extends AppCompatActivity {
         }
 
         return dayInt;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        errorQR = false;
     }
 
     @Override

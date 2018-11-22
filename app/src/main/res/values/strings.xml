@@ -13,6 +13,7 @@
     <string name="confirmacion_prev_asistencia">Asistencia previamente Registrada</string>
     <string name="confirmacion_error_hora">ERROR: la clase no se imparte a esta hora.</string>
     <string name="confirmacion_error_dia">ERROR: la clase no se imparte este dia</string>
+    <string name="confirmacion_error_qr">ERROR: el codigo QR no fue reconocido</string>
     <string name="confirmacion_error">Ocurrio un error de conexion</string>
     <string name="confirmacion_asignatura">Asignatura: </string>
     <string name="confirmacion_carne">Carne: </string>
